@@ -29,15 +29,16 @@ pip install bleak rich
 ## Misc
 
 ### Machine
-
-<img src="img/adapter.png" alt="adapter" style="zoom:20%;" />
+<p align="center">
+  <img src="img/adapter.png" alt="adapter" width="45%" />
+  <img src="img/mainboard.jpg" alt="mainboard" width="17.8%" />
+</p>
 
 The BLE connection to the coffee machine is established via an adapter board ([EFBTLE16](https://fcc.report/FCC-ID/2AIWT-EFBTLE16/4468692.pdf), FCC-ID: [2AIWT-EFBTLE16](https://fccid.io/2AIWT-EFBTLE16)). This adapter board is a simple PCB housing an [nRF51802](https://www.nordicsemi.com/Products/nRF51802) BLE transceiver chip, which communicates with the coffee machine's main IC ([STM32L100RB](https://www.st.com/en/microcontrollers-microprocessors/stm32l100rb.html)) over UART. While it would be possible to sniff the UART traffic to analyze the BLE packets, this approach would offer limited insight, since the cryptographic operations almost certainly run on the main IC. A far more convenient alternative is to capture the packets directly on the smartphone side.
 
 ### App
 
-The Nivona app uses the [Xamarin](https://learn.microsoft.com/en-us/previous-versions/xamarin/android/internals/architecture) platform. This means that the actual program code is written in C#. If you unwrap the assemblies blob, 3 dlls can be identified which are directly relevant for the functionality of the app:  **EugsterMobileApp**, **EugsterMobileApp.Droid** and **Eugster.EFLibrary**  
-The prefix *Eugster* refers to the actual [manufacturer](https://www.eugster.ch/de/) of the device. The two dlls **Arendi.BleLibrary** and **Arendi.DotNETLibrary** provide abstraction APIs for the BLE communication. The prefix *Arendi* refers to the [software contractor](https://www.arendi.ch/).  
+The Nivona app uses the [Xamarin](https://learn.microsoft.com/en-us/previous-versions/xamarin/android/internals/architecture) platform. This means that the actual program code is written in C#. If you unwrap the assemblies blob, 3 dlls can be identified which are directly relevant for the functionality of the app: **EugsterMobileApp**, **EugsterMobileApp.Droid** and **Eugster.EFLibrary**. The prefix *Eugster* refers to the actual [manufacturer](https://www.eugster.ch/de/) of the device.The two dlls **Arendi.BleLibrary** and **Arendi.DotNETLibrary** provide abstraction APIs for the BLE communication. The prefix *Arendi* refers to the [software contractor](https://www.arendi.ch/).  
 The APK not only bundles the Mono runtime to execute the .NET code, but also ships that code obfuscated. This makes dynamic and static code analysis more difficult. Frameworks ([fridax](https://github.com/NorthwaveSecurity/fridax), [mono-api](https://github.com/freehuntx/frida-mono-api)) that simplify hooking with Frida do exist, but they are mostly outdated and require code modifications ([frida-mono-bridge](https://github.com/doyaGu/frida-mono-bridge) seems to work better). 
 
 #### Crypto
