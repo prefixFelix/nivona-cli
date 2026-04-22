@@ -5,9 +5,6 @@
 <p align="center">
 A small CLI tool that implements all the functions of the <a href="https://play.google.com/store/apps/details?id=de.nivona.mobileapp">Nivona app</a>, to control a coffee machine via BLE.
 </p>
-*Does the world really need something like that?* **No**!  
-*Should one seek help if one has the urge to control their coffee machine with their laptop?* **Probably yes!**  
-Anyway. 
 
 ## Demo
 
